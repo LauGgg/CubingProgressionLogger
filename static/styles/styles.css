@@ -1,0 +1,42 @@
+.mainTable {
+    margin: 2% 4% 4% 4%;
+    width: 92%;
+}
+
+.best {
+    background-color:   #454d54 !important;
+}
+
+.border-left {
+    border-left: 2px solid  #343a40 !important;
+}
+
+.border-right {
+    border-right: 2px solid  #343a40 !important;
+}
+
+td, tr {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+.button-box {
+    text-align:center;
+    margin-top:20px;
+    margin-bottom: 8px;
+ }
+
+ .button-box > button {
+    width: 18%;
+ }
+
+ .column2 {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.column2 > input {
+    width: 80%;
+    height: 64%;
+}
