@@ -28,17 +28,17 @@ class Table {
 		this.percentageSub10 = ((sub10s / this.nrOfSovles) * 100).toFixed(2);
 		console.log(this.fastest);
 		$("[data-tableBody]").append(`
-		<tr>
-			<th class="border-right">37</th>
-			<td>${this.fastest.sng}</td>
-			<td>${this.fastest.mo3.time}</td>
-			<td>${this.fastest.ao5.time}</td>
-			<td>${this.fastest.ao12.time}</td>
-			<td class="border-left">${this.nrOfSovles}</td>
-			<td>${this.mean}</td>
-			<td>${this.percentageSub10}%</td>
-		</tr>	
-		`
+			<tr>
+				<th class="border-right">37</th>
+				<td>${this.fastest.sng}</td>
+				<td>${this.fastest.mo3.time}</td>
+				<td>${this.fastest.ao5.time}</td>
+				<td>${this.fastest.ao12.time}</td>
+				<td class="border-left">${this.nrOfSovles}</td>
+				<td>${this.mean}</td>
+				<td>${this.percentageSub10}%</td>
+			</tr>	
+			`
 		);
 	}
 
