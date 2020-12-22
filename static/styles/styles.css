@@ -1,5 +1,5 @@
 .mainTable {
-    margin: 2% 4% 4% 4%;
+    margin: 2% 4% 2% 4%;
     width: 92%;
 }
 
@@ -12,13 +12,24 @@
 }
 
 .border-right {
+    font-weight: bold;
     border-right: 2px solid  #343a40 !important;
 }
 
 td, tr {
     text-align: center;
     vertical-align: middle;
-  }
+}
+
+.mean {
+    --padding: 6px;
+    background-color: none;
+    padding: var(--padding);    
+}
+
+.margin {
+    margin-bottom: 60px;
+}
 
 .button-box {
     text-align:center;
@@ -39,4 +50,8 @@ td, tr {
 .column2 > input {
     width: 80%;
     height: 64%;
+}
+
+.saveBtn {
+    margin-left: 4%;
 }

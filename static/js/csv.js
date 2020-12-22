@@ -26,20 +26,60 @@ class Table {
 			}
 		}
 		this.percentageSub10 = ((sub10s / this.nrOfSovles) * 100).toFixed(2);
-		console.log(this.fastest);
+		let week;
+		if (!$.trim( $('[data-tableBody]').html() ).length) {
+			week = '37';
+		} else {
+			week = parseInt($('[data-tableBody] tr:last [data-week]').text()) + 1;
+		}
 		$("[data-tableBody]").append(`
-			<tr>
-				<th class="border-right">37</th>
-				<td>${this.fastest.sng}</td>
-				<td>${this.fastest.mo3.time}</td>
-				<td>${this.fastest.ao5.time}</td>
-				<td>${this.fastest.ao12.time}</td>
-				<td class="border-left">${this.nrOfSovles}</td>
-				<td>${this.mean}</td>
-				<td>${this.percentageSub10}%</td>
-			</tr>	
-			`
-		);
+		<tr>
+			<td data-week class="border-right">${week}</td>
+			<td>${this.format(this.fastest.sng)}</td>
+			<td>${this.format(this.fastest.mo3.time)}</td>
+			<td>${this.format(this.fastest.ao5.time)}</td>
+			<td>${this.format(this.fastest.ao12.time)}</td>
+			<td class="border-left">${this.nrOfSovles}</td>
+			<td class="mean" style="box-shadow: inset 0 0 0 var(--padding) ${this.meanColor(this.mean)};">${this.format(this.mean)}</td>
+			<td>${this.percentageSub10}%</td>
+		</tr>
+		`);
+		$('[data-StorageError]').html('');
+	}
+	meanColor(mean) {
+		let colors = {
+			12: 'rgb(255, 0, 0)',
+			11.5: 'rgb(128, 0, 255)',
+			11: 'rgb(0, 64, 255)',
+			10.5: 'rgb(0, 191, 255)'
+		};
+		let rounded = 0;
+		if (Math.floor(mean) != Math.floor(mean - 0.5)) {
+			rounded = Math.floor(mean);
+		} else {
+			rounded = Math.floor(mean) + 0.5;
+		}
+		if (rounded >= 12) {
+			rounded = 12;
+		}
+		return colors[rounded.toString()];
+	}
+
+	format(num) {
+		if (this.countDecimals(num) == 2) {
+			return num
+		} else if (this.countDecimals(num) == 1) {
+			return `${num}0`
+		} else {
+			return `${num}.00`
+		}
+	}
+
+	countDecimals(num) {
+		if (Math.floor(num.valueOf()) === num.valueOf()) {
+			return 0;
+		} 
+		return num.toString().split(".")[1].length || 0; 
 	}
 
 	calcFastest(array) {
@@ -111,6 +151,7 @@ class Table {
 function displayHTMLTable(results) {
 	let table = new Table(results);
 	table.displayTable();
+	table = null
 }
 
 $(document).ready(function() {
@@ -135,6 +176,5 @@ $(document).ready(function() {
 			}
 		});
 	});
-	$('[data-csvContent]').hide()
-	$('[data-manualContent]').hide()
+
 });

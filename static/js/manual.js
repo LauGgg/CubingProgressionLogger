@@ -1,8 +1,13 @@
 $(document).ready(function() {
     let inputs = $('input[type=text]')
-
     $('[data-manualSubmit]').click(function() {
-        let row = `<tr><th class="border-right">37</th>`;
+        let week;
+        if (!$.trim( $('[data-tableBody]').html() ).length) {
+            week = '37';
+        } else {
+            week = parseInt($('[data-tableBody] tr:last [data-week]').text()) + 1;
+        }
+        let row = `<tr><td class="border-right">${week}</td>`;
         let i;
         for (i = 0; i < inputs.length; i++) {
             if (!isNaN(inputs[i].value)) {
@@ -10,7 +15,13 @@ $(document).ready(function() {
                     $('[data-errors]').append(`<p class="text-danger">${inputs[i].name} cannot be empty</p>`)
                 }
                 else {
-                    row += `<td>${inputs[i].value}</td>`
+                    if (i == 4) {
+                        row += `<td class="border-left">${inputs[i].value}</td>`
+                    } else if (i == 6) {
+                        row += `<td>${inputs[i].value}%</td>`
+                    } else {
+                        row += `<td>${inputs[i].value}</td>`
+                    }
                 }
             } else {
                 console.log('There is an error')
@@ -18,7 +29,10 @@ $(document).ready(function() {
             }
         }
         if (!$.trim( $('[data-errors]').html() ).length) {
+            row += '</tr>';
             $("[data-tableBody]").append(row);
+            $('[data-StorageError]').html('');
+
         }
-    })
+    });
 });
