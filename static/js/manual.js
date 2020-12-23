@@ -6,6 +6,9 @@ $(document).ready(function() {
             week = '37';
         } else {
             week = parseInt($('[data-tableBody] tr:last [data-week]').text()) + 1;
+            if (week == 53) {
+                week = 1;
+            }
         }
         let row = `<tr><td class="border-right">${week}</td>`;
         let i;

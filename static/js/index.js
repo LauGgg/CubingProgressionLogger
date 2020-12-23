@@ -17,6 +17,21 @@ function meanColor(mean) {
     return colors[rounded.toString()];
 }
 
+let firstPb = JSON.parse(localStorage.getItem('pb'));
+let currentPb = firstPb;
+// console.log(pb)
+
+function isPb(avg, time) {
+    if (time < currentPb[avg]) {
+        currentPb[avg] = time
+        return `<td class="text-danger">${time}</td>`;
+    }
+    return `<td>${time}</td>`;
+}
+
+// let pb = {'sng': 7.27,'mo3': 11.00,'ao5': 11.00,'ao12': 11.00};
+// localStorage.setItem('pb', JSON.stringify(pb));
+
 $(document).ready(function() {	
     $('[data-csvBtn]').on("click", function(e) {
         if ($('[data-csvBtn]').hasClass('btn-secondary')) {
@@ -53,16 +68,16 @@ $(document).ready(function() {
         $('[data-StorageError]').html('You have never created a row')
     } else {
         let table = JSON.parse(retrivedObject)
-        // console.log(table)
+
         let i;
         for (i = 0; i < table.length; i++) {
             $("[data-tableBody]").append(`
 			<tr>
-				<td data-week class="border-right">${table[i].week}</td>
-				<td>${table[i].sng}</td>
-				<td>${table[i].mo3}</td>
-				<td>${table[i].ao5}</td>
-				<td>${table[i].ao12}</td>
+                <td data-week class="border-right">${table[i].week}</td>
+                ${isPb("sng", table[i].sng)}
+                ${isPb("mo3", table[i].mo3)}
+                ${isPb("ao5", table[i].ao5)}
+                ${isPb("ao12", table[i].ao12)}
 				<td class="border-left">${table[i].solves}</td>
 				<td class="mean" style="box-shadow: inset 0 0 0 var(--padding) ${meanColor(table[i].mean)};">${table[i].mean}</td>
 				<td>${table[i].pSub10}%</td>

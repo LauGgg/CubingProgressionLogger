@@ -31,6 +31,9 @@ class Table {
 			week = '37';
 		} else {
 			week = parseInt($('[data-tableBody] tr:last [data-week]').text()) + 1;
+			if (week == 53) {
+				week = 1;
+			}
 		}
 		$("[data-tableBody]").append(`
 		<tr>
